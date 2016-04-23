@@ -93,6 +93,7 @@ class Towers
       self.get_space_count(tower)
       self.make_discs(tower)
       self.make_spaces
+      output << "\n[#{tower.upcase}]:\n"
       output << make_visuals(tower)
       output << "\n"
     end
