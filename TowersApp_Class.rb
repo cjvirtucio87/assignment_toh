@@ -16,7 +16,7 @@ class TowersApp
       quit?(@player_name)
       raise StandardError if !!(/\s+|\W|\d/.match(@player_name))
     rescue
-      puts "ERROR: did not correctly enter the player's name."\
+      puts "\nERROR: did not correctly enter the player's name."\
           " Please try again."
       retry
     end
@@ -24,16 +24,15 @@ class TowersApp
   end
 
   def difficulty_prompt
-    puts "\nHello, #{@player_name}. Select a difficulty level!"
-    puts "[EASY || MEDIUM || HARD]"
+    puts "\nHello, #{@player_name}. Select a difficulty level!"\
+         "\n[EASY || MEDIUM || HARD]"
     begin
-      @app_difficulty = gets.chomp.downcase.to_sym
+      @app_difficulty = gets.chomp.downcase
       quit?(@app_difficulty.to_s)
-      raise StandardError if %w{easy medium hard}.none? do |diff|
-        diff.to_sym == @app_difficulty
-      end
+      raise StandardError if !(/easy|medium|hard/i.match(@app_difficulty))
+      @app_difficulty = @app_difficulty.to_sym
     rescue
-      puts "ERROR: did not correctly enter the difficulty."\
+      puts "\nERROR: did not correctly enter the difficulty."\
           " Please try again."
       retry
     end
