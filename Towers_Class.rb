@@ -15,43 +15,45 @@ class Towers
     @difficulty = difficulty
   end
 
-
-
   #Creating the 'tower' arrays based on the selected difficulty.
   def build_towers
     puts "Building towers.."
     sleep 1.5
     @disc_num = @difficulty_settings[@difficulty]
-    @towers = {first: (1..@disc_num).sort{|num1,num2| num2 <=> num1},\
+    @towers = {first: (self.get_disc_sizes).sort{|num1,num2| num2 <=> num1},\
               second: [], third: []}
   end
 
   #Get disc sizes.
   def get_disc_sizes
     @disc_sizes = []
-    i = 0
-    while @disc_sizes.length < @disc_num
-      @disc_sizes[i] = (i+1) + i
-      i += 1
+    i = @disc_num-1
+    j = 0
+    while j < @disc_num
+      @disc_sizes[j] = (i+1) + i
+      i -= 1
+      j += 1
     end
     @disc_sizes
   end
 
   #Get space count per level.
-  def get_space_count
+  def get_space_count (tower)
     @space_count = []
-    i = 0
-    while @space_count.length < @disc_num
-      @space_count[i] = (@disc_num-1) - i
-      i += 1
+    i = @towers[tower].length-1
+    j = 0
+    while j < @towers[tower].length
+      @space_count[j] = i
+      i -= 1
+      j += 1
     end
     @space_count
   end
 
   #Make discs using disc sizes.
-  def make_discs
+  def make_discs (tower)
     @discs = []
-    @disc_sizes.each do |size|
+    @towers[tower].reverse_each do |size|
       disc = ''
       size.times do
         disc << '#'
@@ -74,13 +76,25 @@ class Towers
     @spaces
   end
 
-  #Display status of the 'tower' arrays.
-  def render
+  def make_visuals (tower)
     visual = []
-    @discs.each_index do |idx|
-      visual << "#{@spaces[idx]}#{@discs[idx]}"
+    i = 0
+    while i < @towers[tower].length
+      visual << "#{@spaces[i]}#{@discs[i]}"
+      i += 1
     end
     puts visual
+    puts "\n"
+  end
+
+  #Display status of the 'tower' arrays.
+  def render
+    @towers.keys.each do |tower|
+      self.get_space_count(tower)
+      self.make_discs(tower)
+      self.make_spaces
+      make_visuals(tower)
+    end
   end
 
   #Moving a disc from a tower.
