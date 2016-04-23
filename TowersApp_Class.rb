@@ -4,7 +4,7 @@ class TowersApp
   def initialize(target_object)
     @target = target_object
     @messages = []
-    puts "Welcome to Towers of Hanoi!"
+    puts "\nWelcome to Towers of Hanoi!"
     sleep 1.5
     puts "Please type in your name!"\
     "\nNo spaces, numbers, or special characters!"
@@ -53,8 +53,8 @@ class TowersApp
 
   #Text output for prompts.
   def prompt_text (option)
-    puts "Whose disc will you remove?" if option == :source
-    puts "Where would you like to place the disc?" if option == :destination
+    puts "\nWhose disc will you remove?" if option == :source
+    puts "\nWhere would you like to place the disc?" if option == :destination
     puts "[FIRST || SECOND || THIRD]"
   end
 
