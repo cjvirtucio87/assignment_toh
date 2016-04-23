@@ -11,7 +11,7 @@ towers_game.build_towers
 
 while true
   puts "TOWER STATUS:\n"
-  puts towers_game.status + "\n"
+  puts towers_game.render
   sleep 1.5
   towers_game.source_tower_choice
   sleep 1.5

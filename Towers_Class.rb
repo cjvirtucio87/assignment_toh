@@ -17,7 +17,7 @@ class Towers
 
   #Creating the 'tower' arrays based on the selected difficulty.
   def build_towers
-    p "Building towers.."
+    puts "Building towers.."
     sleep 1.5
     @disc_num = @difficulty_settings[@difficulty]
     @towers = {first: (1..@disc_num).sort{|num1,num2| num2 <=> num1},\
@@ -27,6 +27,11 @@ class Towers
   #Current status of the 'tower' arrays.
   def status
     "#{@towers[:first]}\n#{@towers[:second]}\n#{@towers[:third]}"
+  end
+
+  #Display status of the 'tower' arrays.
+  def render
+    puts self.status
   end
 
   #Moving a disc from a tower.
@@ -41,7 +46,7 @@ class Towers
   end
 
   #Checking if the player is attempting to quit the game.
-  def quit_check(input)
+  def quit?(input)
     abort if !!(/quit/i.match(input))
   end
 end
