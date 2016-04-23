@@ -65,14 +65,20 @@ class TowersApp
     @destination_tower = choice if option == :destination
   end
 
+  #Checking for choice or render.
+  def choice_prompt_check (option)
+    while true
+      prompt_text(option)
+      tower = gets.chomp.downcase.to_sym
+      !!(/render/i.match(tower.to_s)) ? self.render : break
+    end
+    tower
+  end
+
   #Prompt for tower choice.
   def tower_choice_prompt (option)
     begin
-      while true
-        prompt_text(option)
-        tower = gets.chomp.downcase.to_sym
-        !!(/render/i.match(tower.to_s)) ? self.render : break
-      end
+      tower = choice_prompt_check(option)
       quit?(tower.to_s)
       set_choice(tower,option)
       self.tower_choice_error(tower,option)
